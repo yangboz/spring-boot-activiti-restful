@@ -1,0 +1,63 @@
+<ion-view title="">
+    <ion-nav-buttons side="left">
+        <button class="button" ng-click="orderTasks();" ng-disabled="true">
+            排序
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons class="button-bar">
+        <a class="button" ng-click="changeViewIndex(0)">我的</a>
+        <a class="button" ng-click="changeViewIndex(1)">需审批</a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-plus" ui-sref="tab.task-add">
+        </button>
+    </ion-nav-buttons>
+  <ion-content>
+      <ion-slide-box active-slide="$root.selectedViewIndex">
+          <ion-slide>
+              <ion-list ng-controller="ExpenseCtrl">
+                  <ion-item ng-repeat="expense in $root.expenses" type="item-text-wrap" >
+                      <div class="item item-divider">
+                          {{expense.date | date:'yyyy-MM-dd'}}
+                      </div>
+                      <div class="item item-button-right">
+                          <i >{{expense.status}}</i>
+                          <a href="#/tab/expense/{{expense.id}}"><h2>{{expense.name}}</h2></a>
+                          <p>{{expense.amount}} {{expense.id}}</p>
+                          <button class="button button-icon icon ion-ios7-close-empty" ng-click="removeExpense(expense.id)"></button>
+                      </div>
+                  </ion-item>
+              </ion-list>
+          </ion-slide>
+          <ion-slide>
+              <ion-list ng-controller="TasksCtrl">
+                  <div ng-show="tasks.length==0" class="text-center">No tasks here!</div>
+                  <ion-item ng-repeat="task in tasks" type="item-text-wrap" >
+                      <div class="item item-divider">
+                          {{task.id}}
+                      </div>
+                      <div class="item item-button-right">
+                          <a href="#/tab/task/{{task.id}}"><h2>{{task.name}}</h2></a>
+                          <p>{{task.description}}</p>
+                          <div ng-if="isHandleView(task)">
+                              <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="handleTask(true,task.id)"></button>
+                              <button class="button button-icon icon ion-ios7-close-empty" ng-click="handleTask(false,task.id)"></button>
+                          </div>
+                          <div ng-if="isAdjustView(task)">
+                              <button class="button button-icon icon ion-chevron-up" ng-click="adjustTask(task.id)"></button>
+                          </div>
+                          <div ng-if="isAccountancyView(task)">
+                              <button class="button button-icon icon ion-social-usd" ng-click="accountancyTask(task.id)"></button>
+                          </div>
+                          <!--
+                          <button class="btn btn-success task-claim-button" type="button"
+                                  ng-click="claimTask('{{report.id}}')" ng-show="true" >Claim</button>
+                          -->
+                      </div>
+                  </ion-item>
+              </ion-list>
+          </ion-slide>
+      </ion-slide-box>
+
+  </ion-content>
+</ion-view>

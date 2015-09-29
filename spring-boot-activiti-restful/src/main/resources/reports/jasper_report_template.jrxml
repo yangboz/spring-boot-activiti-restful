@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2015-02-27T21:41:13 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jasper_report_template" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c269aec7-6ddb-4788-bc05-9ee7259835b6">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="expenses_id" class="java.lang.Integer"/>
+	<field name="expenses_owner" class="java.lang.String"/>
+	<field name="expenses_name" class="java.lang.String"/>
+	<field name="expenses_date" class="java.lang.String"/>
+	<field name="expenses_invoices_num" class="java.lang.Integer"/>
+	<field name="items_date" class="java.lang.String"/>
+	<field name="items_vendors" class="java.lang.String"/>
+	<field name="items_invoices" class="java.lang.String"/>
+	<field name="items_notes" class="java.lang.String"/>
+	<field name="items_participantIds" class="java.lang.String"/>
+	<field name="items_amount" class="java.lang.Number"/>
+	<variable name="total_items_amount" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{items_amount}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="133" splitType="Stretch">
+			<frame>
+				<reportElement mode="Transparent" x="0" y="-17" width="536" height="104" uuid="76f8d15c-1100-43be-998b-e301239af358"/>
+				<box padding="1">
+					<topPen lineWidth="5.0" lineStyle="Solid" lineColor="#739199"/>
+					<leftPen lineWidth="5.0" lineStyle="Solid" lineColor="#739199"/>
+					<bottomPen lineWidth="5.0" lineStyle="Solid" lineColor="#739199"/>
+					<rightPen lineWidth="5.0" lineStyle="Solid" lineColor="#739199"/>
+				</box>
+				<staticText>
+					<reportElement x="223" y="14" width="100" height="20" uuid="14349298-48d2-4d10-8acb-3f84016c9aed"/>
+					<textElement>
+						<font fontName="Simhei" size="12"/>
+					</textElement>
+					<text><![CDATA[申请者:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="342" y="13" width="100" height="20" uuid="84e2c5f1-f0f3-40d7-9387-c671ab6ed992"/>
+					<textFieldExpression><![CDATA[$F{expenses_owner}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="223" y="34" width="100" height="20" uuid="2f4b8405-2417-4610-8868-8525b4945065"/>
+					<textElement>
+						<font fontName="Simhei" size="12"/>
+					</textElement>
+					<text><![CDATA[报告名:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="342" y="34" width="100" height="20" uuid="c8cbd012-3270-4dcf-8638-670c26742c74"/>
+					<textElement>
+						<font fontName="Simhei" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{expenses_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="223" y="54" width="100" height="20" uuid="a04200bd-22c3-4826-8366-873b08701251"/>
+					<textElement>
+						<font fontName="Simhei" size="12"/>
+					</textElement>
+					<text><![CDATA[申请日期:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="342" y="54" width="100" height="20" uuid="80e58d2b-30f8-42bd-97ff-3d8fbc18cdbf"/>
+					<textElement>
+						<font fontName="Simhei" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{expenses_date}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="223" y="74" width="100" height="20" uuid="b673a155-acaf-4058-ab7d-41dd7a2c5fb4"/>
+					<textElement>
+						<font fontName="Simhei" size="12"/>
+					</textElement>
+					<text><![CDATA[附件张数:]]></text>
+				</staticText>
+				<componentElement>
+					<reportElement x="20" y="20" width="191" height="54" uuid="17f4a7cb-a5ef-48e7-8290-4b7b6bf93277"/>
+					<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<jr:codeExpression><![CDATA[$F{expenses_id}]]></jr:codeExpression>
+					</jr:Code39>
+				</componentElement>
+				<textField>
+					<reportElement x="342" y="75" width="100" height="20" uuid="56a07136-75b4-4f49-8bf9-d5734938176e"/>
+					<textFieldExpression><![CDATA[$F{expenses_invoices_num}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="0" y="104" width="100" height="20" uuid="b8764b67-a291-4d6f-8741-e52c194e3184"/>
+				<textElement>
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<text><![CDATA[费用流转明细]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="18" width="535" height="25" backcolor="#E5ECF9" uuid="d011b4e5-e3ec-439a-98f9-48a5a542f201"/>
+				<box>
+					<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+				</box>
+				<text><![CDATA[ ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="490" y="23" width="41" height="15" uuid="c72a2185-efe5-4c88-946b-c7ac15533237"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Simhei" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{items_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="23" width="80" height="15" uuid="37ebc9fa-d076-4e39-8fe6-8abb77f4e39f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{items_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="3" width="535" height="15" backcolor="#70A9A9" uuid="f716c738-f8d7-4ac3-9d31-23f398d3cdfe"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<text><![CDATA[ ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="3" width="183" height="15" uuid="905e3bbb-b8b5-41d0-9b22-354a47a6cb30"/>
+				<textElement textAlignment="Center">
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<text><![CDATA[说明]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="3" width="60" height="15" uuid="9a35a0d8-0d92-4b36-a511-d68c6a074f34"/>
+				<textElement textAlignment="Center">
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<text><![CDATA[商家]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="3" width="81" height="15" uuid="030be006-74f0-495f-9e97-f83ef6908ab2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<text><![CDATA[日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="3" width="50" height="15" uuid="a7c9d076-7017-40ea-91f2-d416fadd26f0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<text><![CDATA[附件]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="3" width="107" height="15" uuid="498a40d0-8599-4c2e-8e2f-809b86472633"/>
+				<textElement textAlignment="Center">
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<text><![CDATA[其他人员]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="3" width="45" height="15" uuid="6c033c5a-ee54-4707-aaac-ce3bc9dd0a5c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<text><![CDATA[费用]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="23" width="60" height="15" uuid="e00678cc-6136-4fdc-b3b9-f5b280ae8c28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{items_vendors}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="23" width="60" height="15" uuid="635f02e8-2f7e-4a06-8e6a-7fc1b96ebfb1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{items_invoices}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="23" width="183" height="15" uuid="7a5dede6-4af0-43c8-9bb2-db8c14c16615"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{items_notes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="23" width="107" height="15" uuid="07df2653-bdcb-4bce-b5d0-14b84c3b35a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{items_participantIds}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="30">
+			<staticText>
+				<reportElement x="402" y="2" width="48" height="20" uuid="74baccee-c38a-4242-9925-d67d90375701"/>
+				<box leftPadding="10"/>
+				<textElement>
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<text><![CDATA[合计:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="2" width="85" height="20" uuid="b3859f50-027e-4258-9096-45fca552a482"/>
+				<box leftPadding="10"/>
+				<textElement>
+					<font fontName="Simhei" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_items_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

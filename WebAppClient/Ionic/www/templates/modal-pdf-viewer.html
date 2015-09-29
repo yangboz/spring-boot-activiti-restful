@@ -1,0 +1,14 @@
+<ion-modal-view ng-controller="ReportsCtrl">
+    <ion-header-bar class="bar bar-header">
+        <h1 class="title">PDFViewer</h1>
+        <button class="button button-icon icon ion-close" ng-click="pdfViewerModal.hide()"></button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <pdf-viewer
+                delegate-handle="reportsCtrl-pdf-container"
+                url="pdfUrl"
+                scale="1"
+                showToolbar="false"></pdf-viewer>
+
+    </ion-content>
+</ion-modal-view>

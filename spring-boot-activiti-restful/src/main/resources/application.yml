@@ -1,0 +1,60 @@
+#@see http://hoserdude.com/2014/06/19/spring-boot-configurationproperties-and-profile-management-using-yaml/
+spring:
+  profiles.active: dev
+---
+spring:
+  profiles: dev
+ldap:
+  url: ldap://localhost:10389
+  userOn: uid=admin,ou=system
+  password: secret
+  base: dc=www
+folder:
+  uploads: uploads/
+  reports: reports/
+jms:
+  brokerUrl: tcp://localhost:61616
+  pubSubDomain: true
+workflow:
+  name:reimbursmentApproveSimple
+  bpmn:processes/v1/ReimbursementRequest.bpmn20.xml
+  image:processes/v1/ReimbursementRequest.bpmn20.png
+  rule:null
+---
+spring:
+  profiles: test
+ldap:
+  url: ldap://123.57.78.65:389
+  userOn: cn=Manager,dc=123,dc=57,dc=78,dc=65
+  password: Kit7740321
+  base: dc=123,dc=57,dc=78,dc=65
+folder:
+  uploads: uploads/
+  reports: reports/
+jms:
+  brokerUrl: tcp://123.57.78.65:61616
+  pubSubDomain: true
+workflow:
+  name:reimbursmentApproveSimple
+  bpmn:processes/v1/ReimbursementRequest.bpmn20.xml
+  image:processes/v1/ReimbursementRequest.bpmn20.png
+  rule:null
+---
+spring:
+  profiles: stage 
+ldap:
+  url: ldap://123.56.112.163:389
+  userOn: cn=admin,dc=123,dc=56,dc=112,dc=163
+  password: Rushu0915
+  base: dc=123,dc=56,dc=112,dc=163
+folder:
+  uploads: uploads/
+  reports: reports/
+jms:
+  brokerUrl: tcp://123.56.112.163:61616
+  pubSubDomain: true
+workflow:
+  name:reimbursmentApproveSimple
+  bpmn:processes/v1/ReimbursementRequest.bpmn20.xml
+  image:processes/v1/ReimbursementRequest.bpmn20.png
+  rule:null

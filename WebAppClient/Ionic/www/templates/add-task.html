@@ -1,0 +1,68 @@
+<ion-view title="添加报告">
+    <ion-header-bar class="bar bar-header">
+        <h1 class="title">添加报告</h1>
+    </ion-header-bar>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="$root.saveExpenseReport(false)">保存</button>
+    </ion-nav-buttons>
+    <ion-content class="padding" has-header="true">
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="新报告标题" ng-model="$root.processInstanceVariables.name">
+            </label>
+            <label class="item item-input">
+                <input type="date" placeholder="到期日" ng-model="$root.processInstanceVariables.date">
+            </label>
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        提交至:
+                        <input type="text" placeholder="{{$root.managerIDsSel}}" disabled>
+                    </label>
+                </div>
+                <div class="col-50">
+                    <button class="button button-icon ion-plus-round" ng-click="managerListModal.show()"></button>
+                </div>
+            </div>
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        抄送:
+                        <input type="text" placeholder="{{$root.employeeIDsSel}}" disabled>
+                    </label>
+                </div>
+                <div class="col-50">
+                    <button class="button button-icon ion-plus-round" ng-click="userListModal.show()"></button>
+                </div>
+            </div>
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        总额: {{$root.itemIDsSelAmount}}￥
+                        <input type="number" placeholder="{{$root.itemIDsSel}}" disabled>
+                        添加条目
+                    </label>
+                </div>
+                <div class="col-50">
+                    <button class="button button-icon ion-plus-round" ng-click="itemListModal.show()"></button>
+                </div>
+            </div>
+            <div class="row item item-input-inset">
+                    <ion-item ng-repeat="item in $root.itemsSel" type="item-text-wrap"
+                            >
+                        <div class="item item-divider">
+                            {{item.date | date:'yyyy-MM-dd'}}
+                        </div>
+                        <div class="item item-button-right">
+                            <i >{{item.type=="ApproveAhead"?'预审批':'已消费'}}</i>
+                            <a href="#/tab/dash/{{item.id}}"><h2>{{item.amount}}￥</h2></a>
+                            <p>{{item.name}}</p>
+                            <p>{{item.invoices}},{{item.vendors}}</p>
+                        </div>
+                    </ion-item>
+            </div>
+            <button class="button button-full" ng-click="$root.saveExpenseReport(true)">提交</button>
+        </div>
+    </ion-content>
+
+</ion-view>

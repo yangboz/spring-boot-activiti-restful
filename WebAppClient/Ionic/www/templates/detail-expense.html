@@ -1,0 +1,70 @@
+<!--
+  This template loads for the 'tab.task-detail' state (app.js)
+  'task' is a $scope variable created in the TasksCtrl controller (controllers.js)
+  The TasksCtrl pulls data from the Task service (service.js)
+  The Task service returns an array of task data
+-->
+<!--
+<icon-nav-bar>
+    <ion-nav-buttons side="left">
+        <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="$root.goBack()">Back</a>
+    </ion-nav-buttons>
+</icon-nav-bar>
+-->
+<ion-view title="{{expense.name}}" ng-init="loadExpenseDetail()" ng-controller="ExpenseDetailCtrl" ng-model="$root.processInstanceVariables.name">
+  <!--
+    <ion-content has-header="true" padding="true" title="{{expense.date}}" ng-model="$root.processInstanceVariables.date">
+        {{expense.amount}}
+      <button class="button button-full" ng-click="$root.startProcessInstance(expense.id)" ng-disabled="expense.status!='Saved'">提交</button>
+
+      <div class="row" style="display:table-cell; vertical-align:middle; text-align:center" ng-if="expense.status!='Saved'">
+
+          <img image-lazy-src="{{processInstanceDiagramUrl}}"  >
+
+      </div>
+   </ion-content>
+  -->
+    <ion-content class="padding" has-header="true">
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="新报告标题" value="{{expense.name}}">
+            </label>
+            <label class="item item-input">
+                <input type="date" placeholder="到期日" value="{{expense.date | date:'yyyy-MM-dd'}}">
+            </label>
+            <label class="item item-input">
+                提交至:
+                <input type="text" placeholder="{{expense.managerId}}" disabled>
+            </label>
+            <label class="item item-input">
+                抄送:
+                <input type="text" placeholder="{{expense.participantIds}}" disabled>
+            </label>
+            <label class="item item-input">
+                总额: {{expense.amount}}
+                <input type="number" placeholder="{{expense.itemIds}}" disabled >
+            </label>
+            <div class="row item item-input-inset">
+                <ion-item ng-repeat="item in $root.itemsSel" type="item-text-wrap"
+                        >
+                    <div class="item item-divider">
+                        {{item.date | date:'yyyy-MM-dd'}}
+                    </div>
+                    <div class="item item-button-right">
+                        <i >{{item.type=="ApproveAhead"?'预审批':'已消费'}}</i>
+                        <a href="#/tab/dash/{{item.id}}"><h2>{{item.amount}}￥</h2></a>
+                        <p>{{item.name}}</p>
+                        <p>{{item.invoices}},{{item.vendors}}</p>
+                    </div>
+                </ion-item>
+            </div>
+            <button class="button button-full" ng-click="$root.startProcessInstance(expense)" ng-disabled="expense.status!='Submitted'">提交</button>
+
+            <div class="row" style="display:table-cell; vertical-align:middle; text-align:center" ng-if="expense.status!='Saved'">
+
+                <img image-lazy-src="{{processInstanceDiagramUrl}}"  >
+
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

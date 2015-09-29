@@ -1,0 +1,15 @@
+<ion-modal-view ng-controller="UsersCtrl">
+    <ion-header-bar class="bar bar-header">
+        <h1 class="title">Employees</h1>
+        <button class="button button-icon icon ion-close" ng-click="userListModal.hide()"></button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <label class="item item-radio" ng-repeat="user in $root.employeeIDs">
+            <input type="checkbox"
+                   ng-click="toggleEmployeeListSelection(user.uid)"
+                   ng-checked="$root.employeeIDsSel.indexOf(user.uid) != -1">
+            <div class="item-content">{{ user.uid }}</div>
+            <i class="radio-icon ion-checkmark"></i>
+        </label>
+    </ion-content>
+</ion-modal-view>

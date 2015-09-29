@@ -1,0 +1,14 @@
+<ion-modal-view ng-controller="ItemsCtrl">
+    <ion-header-bar class="bar bar-header">
+        <h1 class="title">Item</h1>
+        <button class="button button-icon icon ion-close" ng-click="itemListModal.hide()"></button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <label class="item item-radio" ng-repeat="item in $root.items">
+            <input type="checkbox" name="group" ng-click="toggleItemListSelection(item,$index)"
+                   ng-checked="$root.itemIDsSel.indexOf(item.id) != -1">
+            <div class="item-content">{{item.name}}</div>
+            <i class="radio-icon ion-checkmark"></i>
+        </label>
+    </ion-content>
+</ion-modal-view>

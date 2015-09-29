@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath"
+	targetNamespace="http://www.sambhashanam.org/humanandservicetaskexample">
+	<process id="HumanAndServiceTaskExample" name="HumanAndServiceTaskExample.bpmn"
+		isExecutable="true">
+		<startEvent id="start" name="Start"></startEvent>
+		<userTask id="HumanTaskExample" name="Human Task Example"></userTask>
+		<sequenceFlow id="defaultFlow" sourceRef="start"
+			targetRef="HumanTaskExample"></sequenceFlow>
+		<serviceTask id="servicetask1" name="Service Task"
+			activiti:class="com.rushucloud.eip.test.activiti.delegate.ServiceClassDelrgateSample"></serviceTask>
+		<sequenceFlow id="moveToServiceTask" sourceRef="HumanTaskExample"
+			targetRef="servicetask1"></sequenceFlow>
+		<endEvent id="endevent1" name="End"></endEvent>
+		<sequenceFlow id="endFlow" sourceRef="servicetask1"
+			targetRef="endevent1"></sequenceFlow>
+	</process>
+	<bpmndi:BPMNDiagram id="BPMNDiagram_HumanAndServiceTaskExample">
+		<bpmndi:BPMNPlane bpmnElement="HumanAndServiceTaskExample"
+			id="BPMNPlane_HumanAndServiceTaskExample">
+			<bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+				<omgdc:Bounds height="35.0" width="35.0" x="120.0" y="140.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="HumanTaskExample"
+				id="BPMNShape_HumanTaskExample">
+				<omgdc:Bounds height="55.0" width="105.0" x="200.0" y="130.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="servicetask1"
+				id="BPMNShape_servicetask1">
+				<omgdc:Bounds height="55.0" width="105.0" x="340.0" y="130.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+				<omgdc:Bounds height="35.0" width="35.0" x="480.0" y="140.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge bpmnElement="defaultFlow" id="BPMNEdge_defaultFlow">
+				<omgdi:waypoint x="155.0" y="157.0"></omgdi:waypoint>
+				<omgdi:waypoint x="200.0" y="157.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="moveToServiceTask"
+				id="BPMNEdge_moveToServiceTask">
+				<omgdi:waypoint x="305.0" y="157.0"></omgdi:waypoint>
+				<omgdi:waypoint x="340.0" y="157.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="endFlow" id="BPMNEdge_endFlow">
+				<omgdi:waypoint x="445.0" y="157.0"></omgdi:waypoint>
+				<omgdi:waypoint x="480.0" y="157.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
+</definitions> 

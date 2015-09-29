@@ -1,0 +1,24 @@
+<ion-modal-view ng-controller="CategoryCtrl">
+    <ion-header-bar class="bar bar-header">
+        <h1 class="title">Category</h1>
+        <button class="button button-icon icon ion-close" ng-click="categoryListModal.hide()"></button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <label class="item item-radio" ng-repeat="category in $root.categoryList">
+            <input type="radio" name="group" ng-click="toggleCategoryListSelection(category)"/>
+            <div class="item-content">{{category.label}}</div>
+            <i class="radio-icon ion-checkmark"></i>
+        </label>
+<!--
+        <div class="item item-divider" ng-repeat="category in categoryList">
+            Candy Bars
+
+            <a class="item" href="#" ng-repeat="subCategory in category.children">
+                Butterfinger
+            </a>
+
+        </div>
+-->
+
+    </ion-content>
+</ion-modal-view>

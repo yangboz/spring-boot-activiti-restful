@@ -1,0 +1,33 @@
+<ion-view title="个人" >
+    <ion-nav-buttons side="left">
+
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-plus" ng-click="showToast('testing the bottom', 'long', 'bottom');">
+        </button>
+    </ion-nav-buttons>
+  <ion-content>
+      <div class="list card">
+
+          <a class="item item-icon-left">
+              <i class="icon ion-information"></i>
+              {{$root.loggedUser.firstName}}
+          </a>
+
+          <a class="item item-icon-left">
+              <i class="icon ion-information"></i>
+              {{$root.loggedUser.lastName}}
+          </a>
+
+          <a class="item item-icon-left">
+              <i class="icon ion-information"></i>
+              {{$root.loggedUser.email}}
+          </a>
+
+          <a class="item item-icon-left">
+              <i class="icon ion-information"></i>
+              <img  style="width: 100px;height: 100px;" src="img/my_profile.png">
+          </a>
+      </div>
+  </ion-content>
+</ion-view>

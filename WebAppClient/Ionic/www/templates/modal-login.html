@@ -1,0 +1,37 @@
+<ion-modal-view ng-controller="LoginCtrl" ng-init="loadCompanies()">
+    <ion-header-bar class="bar bar-header">
+        <h1 class="title">登录</h1>
+        <!--
+        <button class="button button-icon icon ion-close" ng-click="loginModal.hide()"></button>
+        -->
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    公司:
+                </div>
+                <select ng-model="company"
+                        ng-options="company.domain for company in $root.companies"
+                        ng-change="selectedCompany(company)"
+                        >
+                </select>
+                <!--
+                <select>
+                    <option ng-model="company" ng-change="selectedCompany(company);" ng-repeat="company in $root.companies">{{company.domain}}</option>
+                </select>
+                -->
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">用户名:</span>
+                <input value="{{loginModal.user.username}}" ng-model="loginModal.user.username" type="text">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">密码:</span>
+                <input type="password" placeholder="{{loginModal.user.password}}" ng-model="loginModal.user.password" type="text">
+            </label>
+            <button class="button button-full" ng-click="userLogin()">提交</button>
+        </div>
+    </ion-content>
+</ion-modal-view>

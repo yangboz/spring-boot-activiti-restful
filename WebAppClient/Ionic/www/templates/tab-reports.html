@@ -1,0 +1,16 @@
+<icon-view title="统计" ng-init="loadReportsData()">
+    <ion-nav-buttons side="left">
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-share" ui-sref="tab.reports-export">
+        </button>
+    </ion-nav-buttons>
+    <ion-content style="background-color:#ffffff" has-header="true">
+        <!--<canvas barchart="" options="options" data="chart" style="bottom:0;position:absolute;height:100%;width:100%"></canvas>-->
+
+        <div style="padding: 3px;width:100%;height:100%;border: 1px solid #b2b2b2;background-color: #ffffff">
+            <nvd3 options="reportChartOptions" data="reportChartData"></nvd3>
+        </div>
+    </ion-content>
+</icon-view>
+

@@ -1,0 +1,33 @@
+<ion-view title="EXPORT" ng-controller="ReportsCtrl">
+    <ion-content has-header="true" padding="true">
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="标题" ng-model="pdfReportVariables.title">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="副标题" ng-model="pdfReportVariables.subtitle">
+            </label>
+            <ul class="list">
+                <li class="item item-toggle">
+                    Background
+                    <label class="toggle toggle-positive">
+                        <input type="checkbox" ng-model="pdfReportVariables.background">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </li>
+                <li class="item item-toggle">
+                    FullPage
+                    <label class="toggle toggle-positive">
+                        <input type="checkbox" ng-model="pdfReportVariables.fullpage">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </li>
+            </ul>
+            <button class="button button-full" ng-click="getPDFReport();">Submit</button>
+        </div>
+    </ion-content>
+</ion-view>

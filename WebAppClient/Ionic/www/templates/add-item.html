@@ -1,0 +1,112 @@
+<ion-view title="详情">
+    <ion-header-bar class="bar bar-header">
+        <h1 class="title">详情</h1>
+    </ion-header-bar>
+    <ion-nav-buttons side="left">
+        <button class="button button-clear"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="createItem()">保存</button>
+    </ion-nav-buttons>
+    <ion-content class="padding" has-header="true">
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="number" placeholder="金额" ng-model="newItem.amount">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="名称" ng-model="newItem.name">
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    类型
+                </div>
+                <select ng-model="prefType"
+                        ng-options="type.name for type in preferencesItemType"
+                        ng-change="setTypeSelected(prefType)">
+                </select>
+            </label>
+
+            <div class="row item item-input-inset" ng-controller="InvoiceCtrl">
+                <div class="col-50">
+                    <label class="item item-input">
+                        <!--
+                        <img ng-show="imageFile.dataUrl!=null" ng-src="{{imageFile.dataUrl}}">
+                        -->
+                        <img ng-show="imgURI !=null" ng-src="{{imgURI}}" style="width: 32px;height: 32px;">
+                        <img ng-show="imgURI === undefined" ng-src="img/32x32.gif">
+                    </label>
+                </div>
+                <div class="col-50" >
+                    <a class="button button-icon icon ion-ios7-camera" ng-click="takePicture()"></a>
+                    <input style="display: none;"
+                           id="id_file_invoice" type="file" placeholder="照片"
+                           accept="image/*"
+                           onchange="angular.element(this).scope().onFileChangeHandler()"
+                           nv-file-select="" uploader="uploader"
+                            />
+                </div>
+
+            </div>
+            <label class="item item-input">
+                <input type="date" placeholder="日期" ng-model="newItem.date">
+            </label>
+
+        <!--
+        @see: http://ngmodules.org/modules/angular.treeview
+[TREE attribute]
+angular-treeview: the treeview directive
+tree-id : each tree's unique id.
+tree-model : the tree model on $scope.
+node-id : each node's id
+node-label : each node's label
+node-children: each node's children
+-->
+        <!--
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            分类:
+                        </div>
+                        <input type="text" placeholder="{{currentNode.name}}" ng-model="newItem.category" disabled>
+                        <div class="row item item-input-inset"
+                             ng-controller="CategoryCtrl" ng-init="loadCategories()"
+                             data-angular-treeview="true"
+                             data-tree-id="categoryTree"
+                             data-tree-model="categoryList"
+                             data-node-id="id"
+                             data-node-label="name"
+                             data-node-children="children">
+                        </div>
+                    </label>
+        -->
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        <input type="text" placeholder="{{($root.categorySel.label!=null)?$root.categorySel.label:'类别'}}"  disabled/>
+                    </label>
+                </div>
+                <div class="col-50">
+                    <a class="button button-icon icon ion-plus-round" ng-click="$root.loadCategories()"></a>
+                </div>
+            </div>
+            <label class="item item-input">
+                <input type="text" placeholder="{{($root.vendorSel.address!=null)?$root.vendorSel.address:'地点'}}"  disabled/>
+            </label>
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        <input type="text" placeholder="{{($root.vendorSel!=null)?$root.vendorSel.name:'供应商'}}" disabled>
+                    </label>
+                </div>
+                <div class="col-50">
+                    <a class="button button-icon icon ion-plus-round" ng-click="vendorListModal.show()"></a>
+                </div>
+            </div>
+            <div class="row item item-input-inset">
+                <label class="item item-input">
+                    <textarea placeholder="说明" ng-model="newItem.notes"/>
+                </label>
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,69 @@
+<!--
+  This template loads for the 'tab.task-detail' state (app.js)
+  'task' is a $scope variable created in the TasksCtrl controller (controllers.js)
+  The TasksCtrl pulls data from the Task service (service.js)
+  The Task service returns an array of task data
+-->
+<!--
+<icon-nav-bar>
+    <ion-nav-buttons side="left">
+        <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="$root.goBack()">Back</a>
+    </ion-nav-buttons>
+</icon-nav-bar>
+-->
+<ion-view title="{{task.name}}">
+  <ion-content has-header="true" padding="true">
+
+      <label class="item item-input">assignee:
+          <input type="text" placeholder="assignee" disabled value="{{task.assignee}}">
+      </label>
+      <label class="item item-input">createTime:
+          <input type="text" placeholder="createTime" disabled value="{{task.createTime}}">
+      </label>
+      <label class="item item-input">delegationState:
+          <input type="text" placeholder="delegationState" disabled value="{{task.delegationState}}">
+      </label>
+      <label class="item item-input">description:
+          <input type="text" placeholder="description" disabled value="{{task.description}}">
+      </label>
+      <label class="item item-input">dueDate:
+          <input type="text" placeholder="dueDate" disabled value="{{task.dueDate}}">
+      </label>
+      <label class="item item-input" >execution:
+          <input type="text" placeholder="execution" disabled value="{{task.execution}}">
+      </label>
+      <label class="item item-input">id:
+          <input type="text" placeholder="id" disabled value="{{task.id}}">
+      </label>
+      <label class="item item-input">name:
+          <input type="text" placeholder="name" disabled value="{{task.name}}">
+      </label>
+      <label class="item item-input">owner:
+          <input type="text" placeholder="owner" disabled value="{{task.owner}}">
+      </label>
+      <label class="item item-input" >parentTask:
+          <input type="text" placeholder="parentTask" disabled value="{{task.parentTask}}">
+      </label>
+      <label class="item item-input">priority:
+          <input type="text" placeholder="priority" disabled value="{{task.priority}}">
+      </label>
+      <label class="item item-input">processDefinition:
+          <input type="text" placeholder="processDefinition" disabled value="{{task.processDefinition}}">
+      </label>
+      <label class="item item-input">processInstance:
+          <input type="text" placeholder="processInstance" disabled value="{{task.processInstance}}">
+      </label>
+      <label class="item item-input" >suspended:
+          <input type="text" placeholder="suspended" disabled value="{{task.suspended}}">
+      </label>
+      <label class="item item-input">taskDefinitionKey:
+          <input type="text" placeholder="taskDefinitionKey" disabled value="{{task.taskDefinitionKey}}">
+      </label>
+      <label class="item item-input">url:
+          <input type="text" placeholder="url" disabled value="{{task.url}}">
+      </label>
+      <label class="item item-input">tenantId:
+          <input type="text" placeholder="tenantId" disabled value="{{task.tenantId}}">
+      </label>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <collaboration id="Collaboration">
+    <participant id="pool1" name="泳道池审批流程" processRef="reimbursementRequest"></participant>
+  </collaboration>
+  <process id="reimbursementRequest" name="Reimbursement Request" isExecutable="true">
+    <laneSet id="laneSet_process_pool1">
+      <lane id="lane2" name="普通员工">
+        <flowNodeRef>request</flowNodeRef>
+        <flowNodeRef>adjustReimbursementRequestTask</flowNodeRef>
+        <flowNodeRef>endevent3</flowNodeRef>
+        <flowNodeRef>resendRequestDecision</flowNodeRef>
+      </lane>
+      <lane id="lane3" name="经理">
+        <flowNodeRef>handleReimbursementRequestTask</flowNodeRef>
+        <flowNodeRef>requestApprovedDecision</flowNodeRef>
+      </lane>
+      <lane id="lane4" name="出纳">
+        <flowNodeRef>endevent2</flowNodeRef>
+        <flowNodeRef>handleReimbursementAccountancyTask</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="request" activiti:initiator="${employeeName}">
+      <extensionElements>
+        <activiti:formProperty id="amountOfMoney" name="Amout of money" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="startDate" name="First day of request (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
+        <activiti:formProperty id="reimbursementMotivation" name="Motivation" type="string"></activiti:formProperty>
+        <activiti:executionListener event="start" class="info.smartkit.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="flow1" sourceRef="request" targetRef="handleReimbursementRequestTask"></sequenceFlow>
+    <exclusiveGateway id="requestApprovedDecision" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="requestApprovedDecision" targetRef="handleReimbursementAccountancyTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reimbursementApproved}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="handleReimbursementAccountancyTask" name="结算报销请求" activiti:assignee="${assignee}" activiti:candidateUsers="${candidateUsers}" activiti:candidateGroups="${candidateGroups}">
+      <documentation>Your manager has approved ${employeeName} reimbursement request for ${amountOfMoney} money.
+        Reason: ${managerMotivation}</documentation>
+    </userTask>
+    <userTask id="handleReimbursementRequestTask" name="处理报销请求" activiti:assignee="${assignee}" activiti:candidateUsers="${candidateUsers}" activiti:candidateGroups="${candidateGroups}">
+      <documentation>${employeeName} would like to take ${amountOfMoney} money of reimbursement (Motivation: ${reimbursementMotivation}).</documentation>
+      <extensionElements>
+        <activiti:formProperty id="reimbursementApproved" name="Do you approve this reimbursement?" type="enum" required="true">
+          <activiti:value id="true" name="Approve"></activiti:value>
+          <activiti:value id="false" name="Reject"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="managerMotivation" name="Motivation" type="string"></activiti:formProperty>
+        <activiti:taskListener event="all" class="info.smartkit.eip.activiti.ActivitiTaskListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="handleReimbursementRequestTask" targetRef="requestApprovedDecision"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="requestApprovedDecision" targetRef="adjustReimbursementRequestTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!reimbursementApproved}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="adjustReimbursementRequestTask" name="调整报销请求" activiti:assignee="${employeeName}">
+      <documentation>Your manager has disapproved your reimbursement request for ${amountOfMoney} money.
+        Reason: ${managerMotivation}</documentation>
+    </userTask>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow9" sourceRef="handleReimbursementAccountancyTask" targetRef="endevent2"></sequenceFlow>
+    <exclusiveGateway id="resendRequestDecision" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow10" sourceRef="adjustReimbursementRequestTask" targetRef="resendRequestDecision"></sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow11" sourceRef="resendRequestDecision" targetRef="endevent3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resendRequest == 'false'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="resendRequestDecision" targetRef="handleReimbursementRequestTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resendRequest == 'true'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
+      <bpmndi:BPMNShape bpmnElement="pool1" id="BPMNShape_pool1">
+        <omgdc:Bounds height="450.0" width="500.0" x="76.0" y="77.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane2" id="BPMNShape_lane2">
+        <omgdc:Bounds height="150.0" width="480.0" x="96.0" y="77.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane3" id="BPMNShape_lane3">
+        <omgdc:Bounds height="150.0" width="480.0" x="96.0" y="227.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane4" id="BPMNShape_lane4">
+        <omgdc:Bounds height="150.0" width="480.0" x="96.0" y="377.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="request" id="BPMNShape_request">
+        <omgdc:Bounds height="35.0" width="35.0" x="146.0" y="147.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="requestApprovedDecision" id="BPMNShape_requestApprovedDecision">
+        <omgdc:Bounds height="40.0" width="40.0" x="336.0" y="284.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="handleReimbursementAccountancyTask" id="BPMNShape_handleReimbursementAccountancyTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="306.0" y="407.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="handleReimbursementRequestTask" id="BPMNShape_handleReimbursementRequestTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="156.0" y="277.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="adjustReimbursementRequestTask" id="BPMNShape_adjustReimbursementRequestTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="476.0" y="417.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="resendRequestDecision" id="BPMNShape_resendRequestDecision">
+        <omgdc:Bounds height="40.0" width="40.0" x="280.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="470.0" y="93.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="163.0" y="182.0"></omgdi:waypoint>
+        <omgdi:waypoint x="208.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="356.0" y="324.0"></omgdi:waypoint>
+        <omgdi:waypoint x="358.0" y="407.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="261.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="336.0" y="304.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="356.0" y="284.0"></omgdi:waypoint>
+        <omgdi:waypoint x="352.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="411.0" y="434.0"></omgdi:waypoint>
+        <omgdi:waypoint x="476.0" y="434.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="352.0" y="160.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="130.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="320.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="300.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="208.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

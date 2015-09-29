@@ -1,0 +1,14 @@
+<ion-modal-view ng-controller="VendorsCtrl">
+    <ion-header-bar class="bar bar-header">
+        <h1 class="title">Vendor</h1>
+        <button class="button button-icon icon ion-close" ng-click="vendorListModal.hide()"></button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <label class="item item-radio" ng-repeat="vendor in $root.vendors">
+            <input type="radio" name="group" ng-click="toggleVendorListSelection(vendor)"
+                   ng-checked="$root.vendorIdSel==vendor.business_id">
+            <div class="item-content">{{vendor.name}}</div>
+            <i class="radio-icon ion-checkmark"></i>
+        </label>
+    </ion-content>
+</ion-modal-view>

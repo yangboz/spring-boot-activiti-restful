@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.apache.directory.shared:shared-cursor:0.9.15">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/directory/shared/shared-cursor/0.9.15/shared-cursor-0.9.15.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/directory/shared/shared-cursor/0.9.15/shared-cursor-0.9.15-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/directory/shared/shared-cursor/0.9.15/shared-cursor-0.9.15-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

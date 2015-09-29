@@ -1,0 +1,33 @@
+<ion-view title="报销" name="tab-dash" ng-controller="ItemsCtrl" >
+    <ion-nav-buttons side="left">
+        <button class="button" ng-click="itemFilterListModal.show();">
+            排序
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <ion-nav-buttons side="right">
+            <button class="button button-icon icon ion-plus" ui-sref="tab.item-add">
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-buttons>
+  <ion-content>
+      <ion-list>
+
+          <ion-item ng-repeat="item in $root.items" type="item-text-wrap"
+                    >
+              <div class="item item-divider">
+                  {{item.date | date:'yyyy-MM-dd'}}
+              </div>
+              <div class="item item-button-right">
+                  <i >{{item.type=="ApproveAhead"?'预审批':'已消费'}}</i>
+                  <a href="#/tab/dash/{{item.id}}"><h2>{{item.amount}}￥</h2></a>
+                  <p>{{item.name}}</p>
+                  <p>{{item.invoices}},{{item.vendors}}</p>
+                  <button class="button button-icon icon ion-ios7-close-empty" ng-click="removeItem('{{item.id}}')"></button>
+              </div>
+          </ion-item>
+
+      </ion-list>
+
+  </ion-content>
+</ion-view>

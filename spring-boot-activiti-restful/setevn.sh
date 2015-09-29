@@ -1,0 +1,1 @@
+JAVA_OPTS='-DskipTests=true -Dspring.profiles.active=stage'

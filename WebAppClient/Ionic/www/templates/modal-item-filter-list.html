@@ -1,0 +1,47 @@
+<ion-modal-view ng-controller="ItemsCtrl">
+    <ion-header-bar class="bar bar-header">
+        <h1 class="title"></h1>
+        <button class="button button-icon icon ion-close" ng-click="itemFilterListModal.hide()"></button>
+        <button ng-click="" class="button button-icon ion-checkmark"></button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list">
+            <div class="item item-divider">
+                排序
+            </div>
+            <div class="button-bar">
+                <a class="button">日期</a>
+                <a class="button">金额</a>
+            </div>
+            <div class="item item-divider">
+                筛选
+            </div>
+            <div class="button-bar">
+                <a class="button">全部</a>
+                <a class="button">预审批</a>
+                <a class="button">已消费</a>
+            </div>
+            <div class="button-bar">
+                <a class="button">全部</a>
+                <a class="button">已添加到报告</a>
+                <a class="button">未添加到报告</a>
+            </div>
+            <div class="item item-divider">
+                标签
+            </div>
+            <label ng-controller="TagsCtrl" class="item item-radio" ng-repeat="tag in tagList">
+                <input type="radio" name="group">
+                <img src="img/{{tag.icon}}" alt="{{tag.name}}"/>
+                <i class="positive radio-icon ion-checkmark"></i>
+            </label>
+            <div class="item item-divider">
+                类别
+            </div>
+            <label ng-controller="CategoryCtrl" class="item item-radio" ng-repeat="category in categoryList">
+                <input type="radio" name="group">
+                <img src="img/{{category.icon}}" alt="{{category.name}}"/>
+                <i class="positive radio-icon ion-checkmark"></i>
+            </label>
+        </div>
+    </ion-content>
+</ion-modal-view>

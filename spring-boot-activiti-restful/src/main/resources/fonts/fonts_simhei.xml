@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fontFamilies>
+    
+	<fontFamily name="Simhei">
+		<normal>fonts/simhei.ttf</normal>
+		<italic>fonts/simhei.ttf</italic>
+		<pdfEncoding>Identity-H</pdfEncoding>
+		<pdfEmbedded>true</pdfEmbedded>
+		<exportFonts>
+			<export key="net.sf.jasperreports.html">Simhei, 'Times New Roman', Times, serif</export>
+			<export key="net.sf.jasperreports.xhtml">Simhei, 'Times New Roman', Times, serif</export>
+		</exportFonts>
+	</fontFamily>
+
+</fontFamilies>
