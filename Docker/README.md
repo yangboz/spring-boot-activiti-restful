@@ -20,6 +20,14 @@ http://loccalhost:8080/activiti-explorer
 http://loccalhost:8080/activiti-rest
 ```
 
-### Activiti
+### Reference
 
+#### LDAP
+
+https://github.com/osixia/docker-openldap
+
+#### Activiti
 http://tech.blog.saeidmirzaei.com/
+
+#### jasperReport
+https://github.com/bitnami/bitnami-docker-jasperreports
