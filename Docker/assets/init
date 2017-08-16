@@ -1,0 +1,86 @@
+#!/bin/bash
+set -e
+set -x
+
+# configure tomcat admin user/password
+TOMCAT_ADMIN_USER=${TOMCAT_ADMIN_USER:-admin}
+TOMCAT_ADMIN_PASSWORD=${TOMCAT_ADMIN_PASSWORD:-admin}
+sed 's,{{TOMCAT_ADMIN_USER}},'"${TOMCAT_ADMIN_USER}"',g' -i /opt/tomcat/conf/tomcat-users.xml
+sed 's,{{TOMCAT_ADMIN_PASSWORD}},'"${TOMCAT_ADMIN_PASSWORD}"',g' -i /opt/tomcat/conf/tomcat-users.xml
+
+# mysql db
+DB_TYPE=${DB_TYPE:-}
+DB_HOST=${DB_HOST:-}
+DB_PORT=${DB_PORT:-}
+DB_NAME=${DB_NAME:-}
+DB_USER=${DB_USER:-}
+DB_PASS=${DB_PASS:-}
+
+# is a mysql database linked?
+# requires that the mysql container have exposed
+# port 3306 and respectively.
+if [ -n "${MYSQL_PORT_3306_TCP_ADDR}" ]; then
+  DB_TYPE=${DB_TYPE:-mysql}
+  DB_HOST=${DB_HOST:-${MYSQL_PORT_3306_TCP_ADDR}}
+  DB_PORT=${DB_PORT:-${MYSQL_PORT_3306_TCP_PORT}}
+
+  # support for linked sameersbn/mysql image
+  DB_USER=${DB_USER:-${MYSQL_ENV_DB_USER}}
+  DB_PASS=${DB_PASS:-${MYSQL_ENV_DB_PASS}}
+  DB_NAME=${DB_NAME:-${MYSQL_ENV_DB_NAME}}
+fi
+
+## For the sake of getting the quick start guide to work,
+## we attempt to spin up a mysql container if possible.
+##
+## NOTE: this is only meant for getting the quick start guide to work .
+##
+if [ -z "${DB_HOST}" -a -n "$(which docker)" -a -S /var/run/docker.sock ]; then
+  echo "Database connection details not specified."
+  echo "Will try to spin up a new mysql image with the name mysql-activiti."
+  echo "Please manually configure the database connection in production."
+  case "$(docker inspect --format {{.State.Running}} mysql-activiti 2>/dev/null)" in
+    true)
+      echo "Using existing mysql container..."
+      ;;
+    false)
+      echo "Starting up existing mysql container..."
+      docker start mysql-activiti >/dev/null 2>/dev/null
+      ;;
+    *)
+      echo "Starting up a new myslq-activiti container..."
+      docker run --name='mysql-activiti' -d \
+        -e 'DB_USER=activiti_user' -e 'DB_PASS=activiti_pass' -e 'DB_NAME=activiti_db' \
+        sameersbn/mysql:latest >/dev/null 2>/dev/null
+      ;;
+  esac
+  DB_TYPE=mysql
+  DB_HOST=$(docker inspect --format {{.NetworkSettings.IPAddress}} mysql-activiti 2>/dev/null)
+  DB_PORT=3306
+  DB_USER=activiti_user
+  DB_PASS=activiti_pass
+  DB_NAME=activiti_db
+fi
+
+if [ -z "${DB_HOST}" ]; then
+  echo "WARNING: "
+  echo "  No mysql connection available."
+  echo "  Will work with default H2 in-memory database."
+  unset DB_TYPE
+fi
+
+# use default port number if it is still not set
+case "${DB_TYPE}" in
+  mysql) 
+    DB_PORT=${DB_PORT:-3306}
+    sed 's/{{DB_PORT}}/'"${DB_PORT}"'/g' -i /assets/config/db.properties
+    sed 's/{{DB_HOST}}/'"${DB_HOST}"'/g' -i /assets/config/db.properties
+    sed 's/{{DB_NAME}}/'"${DB_NAME}"'/g' -i /assets/config/db.properties
+    sed 's/{{DB_USER}}/'"${DB_USER}"'/g' -i /assets/config/db.properties
+    sed 's/{{DB_PASS}}/'"${DB_PASS}"'/g' -i /assets/config/db.properties
+    cp -f /assets/config/db.properties /opt/tomcat/webapps/activiti-rest/WEB-INF/classes
+    cp -f /assets/config/db.properties /opt/tomcat/webapps/activiti-explorer/WEB-INF/classes
+    ;;
+esac
+
+/opt/tomcat/bin/catalina.sh run
