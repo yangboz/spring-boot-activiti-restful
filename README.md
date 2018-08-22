@@ -14,13 +14,15 @@ And used Swagger-UI to visualize the RESTful API, And HTML5(Ionic) front-end int
 ### Back-end ###
 
 ```
+cd spring-boot-activiti-restful 
 mvn spring-boot:run -Dspring.profiles.active=dev
 ```
 
 ### Front-end ###
 
 ```
-mvn spring-boot:run -Dspring.profiles.active=dev
+cd WebAppClient/Ionic 
+ionic serve
 ```
 
 ## Wiki ##
